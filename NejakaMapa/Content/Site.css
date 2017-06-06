@@ -1,0 +1,79 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+#map {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0px;
+    top: 50px;
+    left: 0px;
+    right: 0px;
+}
+
+.window {
+    position: fixed;
+    z-index: 99;
+    height: 370px;
+    width: 350px;
+    margin-left: 50%;
+    left: -125px;
+    margin-top: 300px;
+    background-color: white;
+    box-shadow: 2px 2px 15px;
+    text-align: center;
+    padding: 15px;
+}
+
+#form h2 {
+    font-size: 24px;
+}
+
+#form input {
+    font-size: 14px;
+    padding: 5px;
+    width: 200px;
+}
+
+    #form input[type=text] {
+        margin-top: 10px;
+        margin-bottom: 15px;
+        background-color: white;
+        border: 1px solid silver;
+    }
+
+    #form input[type=datetime-local] {
+        margin-top: 10px;
+        margin-bottom: 15px;
+        background-color: white;
+        border: 1px solid silver;
+    }
+
+    #form input[type=button] {
+        background-color: white;
+        border: 1px solid black;
+    }
+
+#form textarea {
+    font-size: 14px;
+    padding: 5px;
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    background-color: white;
+    border: 1px solid silver;
+}
+
+
+#points{
+    margin-top: 50px;
+}

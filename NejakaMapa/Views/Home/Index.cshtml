@@ -1,0 +1,145 @@
+﻿@model IEnumerable<NejakaMapa.Models.Udalost>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="form" class="window" style="display:none">
+    <form>
+        <h2>Create Point</h2>
+
+        <input type="text" id="name" placeholder="Name" required><br>
+        <input type="datetime-local" id="date" required><br>
+        <textarea id="text"></textarea>
+        <input type="button" id="save" value="Save">
+
+
+
+    </form>
+</div>
+
+<div id="map"></div>
+
+
+<script>
+
+
+    window.addEventListener('resize', function (event) {
+        resizeHeightMap();
+    });
+
+
+
+    var map, infoWindow;
+
+    function initMap() {
+
+        resizeHeightMap();
+
+        var startPosition = new google.maps.LatLng(50, 14.4);
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: startPosition,
+            mapTypeId: 'terrain'
+        });
+
+
+        var infowindow = new google.maps.InfoWindow();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                map.setCenter(pos);
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+
+
+        map.addListener('rightclick', function (e) {
+
+            var lat = e.latLng.lat();
+            var lng = e.latLng.lng();
+
+            $("#form").show();
+
+            $("#save").click(function () {
+                var name = $("#name").val();
+                if (name == "") {
+
+                    $("#name").css("border", "1px solid red");
+
+                } else {
+
+                    $("#form").hide();
+
+                    setTimeout(function () {
+
+                        var latLng = new google.maps.LatLng(lat, lng);
+                        var marker = new google.maps.Marker({
+                            position: latLng,
+                            map: map
+                        });
+
+                    }, 100);
+
+                    var data = {
+                        "name": name,
+                        "lat": lat,
+                        "lng": lng
+                    }
+
+                    console.log(data);
+
+                    $.post("../Home/Ajax", data, function (data, status) {
+                        console.log(status);
+
+                    });
+                }
+
+
+            });
+
+
+        });
+
+
+
+        var script = document.createElement('script');
+        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+
+        window.eqfeed_callback = function (results) {
+
+            for (var i = 0; i < results.features.length; i++) {
+
+                var coords = results.features[i].geometry.coordinates;
+
+
+                var latLng = new google.maps.LatLng(coords[1], coords[0]);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map
+                });
+            }
+        }
+
+
+
+    }
+
+    function resizeHeightMap() {
+        var vHeight = $(window).height();
+        $('#map').css({ "height": vHeight - 50 });
+    }
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgo7-7PaTG4JyiWUrq_NLPKz-723GLDDI&callback=initMap" async defer></script>

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<NejakaMapa.Models.Udalost>
+
+@{
+    ViewBag.Title = "Points";
+}
+
+<h1 id="points">Points</h1>
+
+<table>
+    <tr><th>Name</th><th>Date</th><th>Lattitude</th><th>Longitude</th><th>Text</th></tr>
+    @{
+
+        foreach (Udalost data in Udalosti.GetUdalost()) {
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            }
+
+        }
+
+</table>
