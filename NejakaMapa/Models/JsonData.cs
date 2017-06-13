@@ -8,8 +8,8 @@ namespace NejakaMapa.Models
     public class JsonData
     {
         public string Name { get; set; }
-        public float Lat { get; set; }
-        public float Lng { get; set; }
+        public string Lat { get; set; }
+        public string Lng { get; set; }
         public DateTime Date { get; set; }
         public string Text { get; set; }
     }

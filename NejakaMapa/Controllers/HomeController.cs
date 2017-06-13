@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NejakaMapa.Models;
+using System.Globalization;
 
 namespace NejakaMapa.Controllers
 {
@@ -22,7 +23,10 @@ namespace NejakaMapa.Controllers
 
         public bool Ajax(JsonData data)
         {
-            Udalosti.AddUdalost(data.Lat, data.Lng, data.Name, data.Date, data.Text);
+            decimal lat = Decimal.Parse(data.Lat, CultureInfo.InvariantCulture);
+            decimal lng = Decimal.Parse(data.Lng, CultureInfo.InvariantCulture);
+
+            Udalosti.AddUdalost(lat, lng, data.Name, data.Date, data.Text);
             return true;
         }
 

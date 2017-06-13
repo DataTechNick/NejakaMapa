@@ -74,6 +74,10 @@
 
             $("#save").click(function () {
                 var name = $("#name").val();
+
+                var date = $("#date").val();
+                var text = $("#text").val();
+
                 if (name == "") {
 
                     $("#name").css("border", "1px solid red");
@@ -93,15 +97,14 @@
                     }, 100);
 
                     var data = {
-                        "name": name,
-                        "lat": lat,
-                        "lng": lng
+                        name: name,
+                        lat: lat + "",
+                        lng: lng + "",
+                        date: date,
+                        text: text
                     }
-
-                    console.log(data);
-
+                    
                     $.post("../Home/Ajax", data, function (data, status) {
-                        console.log(status);
 
                     });
                 }
@@ -120,12 +123,12 @@
 
 
     var json = @Html.Raw(Model.Select(u => new { lat = u.Pozice.Lat, lng = u.Pozice.Lng, name = u.Name, date = u.Datum, text = u.Poznamka }).ToJSON());
-        
+    
     var addMarkers = function () {
 
         for (var i = 0; i < json.length; i++) {
 
-            var latLng = new google.maps.LatLng(json[i+1].lat, json[i+1].lng);
+            var latLng = new google.maps.LatLng(json[i].lat, json[i].lng);
             var marker = new google.maps.Marker({
                 position: latLng,
                 map: map
