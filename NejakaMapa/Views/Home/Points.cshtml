@@ -10,8 +10,11 @@
     <tr><th>Name</th><th>Date</th><th>Lattitude</th><th>Longitude</th><th>Text</th></tr>
     @{
 
-        foreach (Udalost data in Udalosti.GetUdalost()) {
-        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        foreach (var udalost in Model)
+        {
+
+        <tr><td>@udalost.Name</td><td>@udalost.Datum</td><td>@udalost.Pozice.Lat</td><td>@udalost.Pozice.Lng</td><td>@udalost.Poznamka</td></tr>
+
             }
 
         }

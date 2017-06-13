@@ -165,6 +165,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\JsonData.cs" />
+    <Compile Include="Models\JSONUtils.cs" />
     <Compile Include="Models\NejakaMapaContext.cs" />
     <Compile Include="Models\Souradnice.cs" />
     <Compile Include="Models\Udalost.cs" />

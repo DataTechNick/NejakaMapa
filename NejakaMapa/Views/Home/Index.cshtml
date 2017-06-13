@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<NejakaMapa.Models.Udalost>
+@using NejakaMapa.Models;
 
 @{
     ViewBag.Title = "Index";
 }
 
 <div id="form" class="window" style="display:none">
+    <span class="close" onclick="$('#form').hide();">X</span>
     <form>
         <h2>Create Point</h2>
 
@@ -111,28 +113,24 @@
         });
 
 
-
-        var script = document.createElement('script');
-        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-        document.getElementsByTagName('head')[0].appendChild(script);
-
-        window.eqfeed_callback = function (results) {
-
-            for (var i = 0; i < results.features.length; i++) {
-
-                var coords = results.features[i].geometry.coordinates;
+        addMarkers();
 
 
-                var latLng = new google.maps.LatLng(coords[1], coords[0]);
-                var marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map
-                });
-            }
+    }
+
+
+    var json = @Html.Raw(Model.Select(u => new { lat = u.Pozice.Lat, lng = u.Pozice.Lng, name = u.Name, date = u.Datum, text = u.Poznamka }).ToJSON());
+        
+    var addMarkers = function () {
+
+        for (var i = 0; i < json.length; i++) {
+
+            var latLng = new google.maps.LatLng(json[i+1].lat, json[i+1].lng);
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
         }
-
-
-
     }
 
     function resizeHeightMap() {

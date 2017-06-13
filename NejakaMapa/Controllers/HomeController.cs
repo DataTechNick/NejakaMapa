@@ -12,12 +12,12 @@ namespace NejakaMapa.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(Udalosti.GetUdalosti());
         }
 
         public ActionResult Points()
         {
-            return View();
+            return View(Udalosti.GetUdalosti());
         }
 
         public bool Ajax(JsonData data)

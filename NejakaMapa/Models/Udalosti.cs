@@ -10,7 +10,7 @@ namespace NejakaMapa.Models
         private static List<Udalost> udalosti = new List<Udalost>();
 
 
-        public static void AddUdalost(float lat, float lng, string name, DateTime date, string text) {
+        public static void AddUdalost(double lat, double lng, string name, DateTime date, string text) {
 
             Udalost udalost = new Udalost();
             Souradnice souradnice = new Souradnice();
@@ -19,6 +19,7 @@ namespace NejakaMapa.Models
             souradnice.Lng = lng;
 
             udalost.Pozice = souradnice;
+            udalost.Name = name;
             udalost.Datum = date;
             udalost.Poznamka = text;
 
